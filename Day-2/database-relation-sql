@@ -1,0 +1,221 @@
+
+
+camper: /project$ psql --username=postgres
+Border style is 2.
+Title is " ".
+Pager usage is off.
+psql (12.17 (Ubuntu 12.17-1.pgdg22.04+1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+postgres=# CREATE USER freecodecamp WITH PASSWORD 'password';
+CREATE ROLE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE mydb TO freecodecamp;
+ERROR:  database "mydb" does not exist
+postgres=# \l
+postgres=#                                List of databases
++-----------+----------+----------+---------+---------+-----------------------+
+|   Name    |  Owner   | Encoding | Collate |  Ctype  |   Access privileges   |
++-----------+----------+----------+---------+---------+-----------------------+
+| postgres  | postgres | UTF8     | C.UTF-8 | C.UTF-8 |                       |
+| template0 | postgres | UTF8     | C.UTF-8 | C.UTF-8 | =c/postgres          +|
+|           |          |          |         |         | postgres=CTc/postgres |
+| template1 | postgres | UTF8     | C.UTF-8 | C.UTF-8 | =c/postgres          +|
+|           |          |          |         |         | postgres=CTc/postgres |
++-----------+----------+----------+---------+---------+-----------------------+
+(3 rows)
+
+CREATE DATABASE mydb;
+CREATE DATABASE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE mydb TO freecodecamp;
+postgres=# GRANT
+\c mydb
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+You are now connected to database "mydb" as user "postgres".
+mydb=# CREATE TABLE api_requests (
+mydb(#     id SERIAL PRIMARY KEY,
+mydb(#     endpoint VARCHAR(255),
+mydb(#     method VARCHAR(10),
+mydb(#     status_code INTEGER,
+mydb(#     response_time INTEGER,
+mydb(#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+mydb(#     user_id INTEGER
+mydb(# );
+_users (
+    id SERIAL PRIMARY KEY,
+    username Vmydb=# CREATE TABLE
+
+mydb=# CREATE TABLE api_users (
+mydb(#     id SERIAL PRIMARY KEY,
+mydb(#     username VARCHAR(50),
+mydb(#     api_key VARCHAR(100)
+mydb(# );
+CREATE TABLE
+mydb=# 
+mydb=# INSERT INTO api_users (username, api_key) VALUES
+mydb-# ('john_doe', 'key_123'),
+mydb-# ('jane_smith', 'key_456');
+INSERT 0 2
+mydb=# 
+mydb=# INSERT INTO api_requests (endpoint, method, status_code, response_time) 
+mydb-# VALUES 
+mydb-# ('/users', 'GET', 200, 150),
+mydb-# ('/posts', 'POST', 201, 300),
+mydb-# ('/users/123', 'GET', 404, 50),
+mydb-# ('/comments', 'GET', 200, 75);
+mydb=# INSERT 0 4
+UPDATE api_requests SET user_id = 1 WHERE id IN (1, 3);
+mydb=# UPDATE 2
+UPDATE api_requests SET user_id = 2 WHERE id IN (2, 4);
+mydb=# UPDATE 2
+SELECT 
+mydb-#     r.endpoint,
+mydb-#     r.method,
+mydb-#     r.status_code,
+mydb-#     u.username
+mydb-# FROM api_requests r
+mydb-# JOIN api_users u ON r.user_id = u.id;
+                         
++------------+--------+-------------+------------+
+|  endpoint  | method | status_code |  username  |
++------------+--------+-------------+------------+
+| /users     | GET    |         200 | john_doe   |
+| /users/123 | GET    |         404 | john_doe   |
+| /posts     | POST   |         201 | jane_smith |
+| /comments  | GET    |         200 | jane_smith |
++------------+--------+-------------+------------+
+(4 rows)
+
+mydb=# SELECT 
+mydb-#     r.endpoint,
+mydb-#     r.method,
+mydb-#     r.status_code,
+mydb-#     u.username
+mydb-# FROM api_requests r
+mydb-# JOIN api_users u ON r.user_id = u.id;
+mydb=#                          
++------------+--------+-------------+------------+
+|  endpoint  | method | status_code |  username  |
++------------+--------+-------------+------------+
+| /users     | GET    |         200 | john_doe   |
+| /users/123 | GET    |         404 | john_doe   |
+| /posts     | POST   |         201 | jane_smith |
+| /comments  | GET    |         200 | jane_smith |
++------------+--------+-------------+------------+
+(4 rows)
+
+SELECT 
+mydb-#     u.username,
+mydb-#     COUNT(*) as request_count
+mydb-# FROM api_requests r
+mydb-# JOIN api_users u ON r.user_id = u.id
+mydb-# GROUP BY u.username
+mydb-# ORDER BY request_count DESC;
+mydb=#                
++------------+---------------+
+|  username  | request_count |
++------------+---------------+
+| john_doe   |             2 |
+| jane_smith |             2 |
++------------+---------------+
+(2 rows)
+
+SELECT DISTINCT u.username
+mydb-# FROM api_requests r
+mydb-# JOIN api_users u ON r.user_id = u.id
+mydb-# WHERE r.response_time > (
+mydb(#     SELECT AVG(response_time) 
+mydb(#     FROM api_requests
+mydb(# );
+mydb=#        
++------------+
+|  username  |
++------------+
+| jane_smith |
+| john_doe   |
++------------+
+(2 rows)
+
+ALTER TABLE api_requests
+mydb-# ADD CONSTRAINT fk_user
+mydb-# FOREIGN KEY (user_id) 
+mydb-# REFERENCES api_users(id);
+ALTER TABLE
+mydb=# BEGIN;
+BEGIN
+mydb=# INSERT INTO api_users (username, api_key) VALUES ('new_user', 'key_789');
+INSERT 0 1
+mydb=# INSERT INTO api_requests (endpoint, method, status_code, response_time, user_id) 
+mydb-# VALUES ('/login', 'POST', 200, 100, 3);
+mydb=# INSERT 0 1
+COMMIT;
+COMMIT
+mydb=# SELECT * FROM api_users;
+mydb=#                
++----+------------+---------+
+| id |  username  | api_key |
++----+------------+---------+
+|  1 | john_doe   | key_123 |
+|  2 | jane_smith | key_456 |
+|  3 | new_user   | key_789 |
++----+------------+---------+
+(3 rows)
+
+SELECT * FROM api_requests ORDER BY id;
+                                                 
++----+------------+--------+-------------+---------------+----------------------------+---------+
+| id |  endpoint  | method | status_code | response_time |         created_at         | user_id |
++----+------------+--------+-------------+---------------+----------------------------+---------+
+|  1 | /users     | GET    |         200 |           150 | 2025-04-23 08:59:21.846665 |       1 |
+|  2 | /posts     | POST   |         201 |           300 | 2025-04-23 08:59:21.846665 |       2 |
+|  3 | /users/123 | GET    |         404 |            50 | 2025-04-23 08:59:21.846665 |       1 |
+|  4 | /comments  | GET    |         200 |            75 | 2025-04-23 08:59:21.846665 |       2 |
+|  5 | /login     | POST   |         200 |           100 | 2025-04-23 09:01:42.592043 |       3 |
++----+------------+--------+-------------+---------------+----------------------------+---------+
+(5 rows)
+
+mydb=# SELECT 
+mydb-#     u.username,
+mydb-#     COUNT(*) as total_requests,
+mydb-#     AVG(r.response_time) as avg_response_time,
+mydb-#     COUNT(CASE WHEN r.status_code = 200 THEN 1 END) as successful_requests,
+mydb-#     COUNT(CASE WHEN r.status_code != 200 THEN 1 END) as failed_requests
+mydb-# FROM api_users u
+mydb-# LEFT JOIN api_requests r ON u.id = r.user_id
+mydb-# GROUP BY u.username
+mydb-# ORDER BY total_requests DESC;
+                                               
++------------+----------------+----------------------+---------------------+-----------------+
+|  username  | total_requests |  avg_response_time   | successful_requests | failed_requests |
++------------+----------------+----------------------+---------------------+-----------------+
+| john_doe   |              2 | 100.0000000000000000 |                   1 |               1 |
+| jane_smith |              2 | 187.5000000000000000 |                   1 |               1 |
+| new_user   |              1 | 100.0000000000000000 |                   1 |               0 |
++------------+----------------+----------------------+---------------------+-----------------+
+(3 rows)
+
+mydb=# CREATE VIEW user_activity AS
+mydb-# SELECT 
+mydb-#     u.username,
+mydb-#     r.endpoint,
+mydb-#     r.method,
+mydb-#     r.status_code,
+mydb-#     r.response_time,
+mydb-#     r.created_at
+mydb-# FROM api_users u
+mydb-# JOIN api_requests r ON u.id = r.user_id
+mydb-# ORDER BY r.created_at DESC;
+CREATE VIEW
+mydb=# SELECT * FROM user_activity;
+mydb=#                                                 
++------------+------------+--------+-------------+---------------+----------------------------+
+|  username  |  endpoint  | method | status_code | response_time |         created_at         |
++------------+------------+--------+-------------+---------------+----------------------------+
+| new_user   | /login     | POST   |         200 |           100 | 2025-04-23 09:01:42.592043 |
+| john_doe   | /users     | GET    |         200 |           150 | 2025-04-23 08:59:21.846665 |
+| john_doe   | /users/123 | GET    |         404 |            50 | 2025-04-23 08:59:21.846665 |
+| jane_smith | /posts     | POST   |         201 |           300 | 2025-04-23 08:59:21.846665 |
+| jane_smith | /comments  | GET    |         200 |            75 | 2025-04-23 08:59:21.846665 |
++------------+------------+--------+-------------+---------------+----------------------------+
+(5 rows)
+
