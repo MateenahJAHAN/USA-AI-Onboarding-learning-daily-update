@@ -1,0 +1,276 @@
+# Get data from an API
+response = requests.get('https://api.example.com/data')
+json_data = response.json() # Automatically converts JSON to Python dictionary
+import-im6.q16: unable to open X server `' @ error/import.c/ImportImageCommand/346.
+bash: syntax error near unexpected token `('
+bash: syntax error near unexpected token `('
+camper: /project$ python3
+Python 3.12.1 (main, Jan 20 2024, 11:50:36) [GCC 11.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> >>> import requests
+File "<stdin>", line 1
+>>> import requests
+
+^^
+SyntaxError: invalid syntax
+>>> >>> response = requests.get('https://api.github.com/users/octocat')
+File "<stdin>", line 1
+>>> response = requests.get('https://api.github.com/users/octocat')
+^^
+SyntaxError: invalid syntax
+>>> >>> json_data = response.json()
+File "<stdin>", line 1
+>>> json_data = response.json()
+^^
+SyntaxError: invalid syntax
+>>> >>> print(json_data['login'])
+File "<stdin>", line 1
+>>> print(json_data['login'])
+^^
+SyntaxError: invalid syntax
+>>> import requests
+pi.github.com/users/octocat')
+json_data = response.json()
+print(json_data['login'])>>> response = requests.get('https://api.github.com/users/octocat')
+>>> json_data = response.json()
+>>> print(json_data['login'])
+octocat
+>>> # See the entire JSON response
+>>> print(json_data)
+{'login': 'octocat', 'id': 583231, 'node_id': 'MDQ6VXNlcjU4MzIzMQ==', 'avatar_url':
+'https://avatars.githubusercontent.com/u/583231?v=4', 'gravatar_id': '', 'url':
+'https://api.github.com/users/octocat', 'html_url': 'https://github.com/octocat', 'followers_url':
+'https://api.github.com/users/octocat/followers', 'following_url':
+'https://api.github.com/users/octocat/following{/other_user}', 'gists_url':
+'https://api.github.com/users/octocat/gists{/gist_id}', 'starred_url':
+'https://api.github.com/users/octocat/starred{/owner}{/repo}', 'subscriptions_url':
+'https://api.github.com/users/octocat/subscriptions', 'organizations_url':
+'https://api.github.com/users/octocat/orgs', 'repos_url':
+'https://api.github.com/users/octocat/repos', 'events_url':
+'https://api.github.com/users/octocat/events{/privacy}', 'received_events_url':
+'https://api.github.com/users/octocat/received_events', 'type': 'User', 'user_view_type': 'public',
+'site_admin': False, 'name': 'The Octocat', 'company': '@github', 'blog': 'https://github.blog',
+'location': 'San Francisco', 'email': None, 'hireable': None, 'bio': None, 'twitter_username': None,
+'public_repos': 8, 'public_gists': 8, 'followers': 17679, 'following': 9, 'created_at':
+'2011-01-25T18:44:36Z', 'updated_at': '2025-04-22T11:22:07Z'}
+>>>
+>>> # Access other fields
+
+>>> print(json_data['id'])
+583231
+>>> print(json_data['type'])
+User
+>>>
+>>> # Check what keys are available
+>>> print(json_data.keys())
+dict_keys(['login', 'id', 'node_id', 'avatar_url', 'gravatar_id', 'url', 'html_url', 'followers_url',
+'following_url', 'gists_url', 'starred_url', 'subscriptions_url', 'organizations_url', 'repos_url',
+'events_url', 'received_events_url', 'type', 'user_view_type', 'site_admin', 'name', 'company',
+'blog', 'location', 'email', 'hireable', 'bio', 'twitter_username', 'public_repos', 'public_gists',
+'followers', 'following', 'created_at', 'updated_at'])
+>>> psql --username=postgres --dbname=mydb
+File "<stdin>", line 1
+psql --username=postgres --dbname=mydb
+^^^^^^^^^^^^^^^
+SyntaxError: cannot assign to expression
+>>> exit()
+camper: /project$ psql --username=postgres --dbname=mydb
+psql: error: connection to server at "127.0.0.1", port 5432 failed: FATAL: database "mydb" does
+not exist
+camper: /project$ psql --username=postgres
+Border style is 2.
+Title is " ".
+Pager usage is off.
+psql (12.17 (Ubuntu 12.17-1.pgdg22.04+1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256,
+compression: off)
+Type "help" for help.
+postgres=# \l
+
+List of databases
+
++-----------+----------+----------+---------+---------+-----------------------+
+| Name | Owner | Encoding | Collate | Ctype | Access privileges |
++-----------+----------+----------+---------+---------+-----------------------+
+| postgres | postgres | UTF8 | C.UTF-8 | C.UTF-8 | |
+| template0 | postgres | UTF8 | C.UTF-8 | C.UTF-8 | =c/postgres +|
+| | | | | | postgres=CTc/postgres |
+| template1 | postgres | UTF8 | C.UTF-8 | C.UTF-8 | =c/postgres +|
+| | | | | | postgres=CTc/postgres |
++-----------+----------+----------+---------+---------+-----------------------+
+(3 rows)
+postgres=# CREATE DATABASE mydb;
+
+CREATE DATABASE
+postgres=# \c mydb
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256,
+compression: off)
+You are now connected to database "mydb" as user "postgres".
+mydb=# CREATE TABLE api_responses (
+mydb(# id SERIAL PRIMARY KEY,
+mydb(# endpoint VARCHAR(255),
+mydb(# response_data JSON,
+mydb(# created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+mydb(# );
+CREATE TABLE
+mydb=# INSERT INTO api_responses (endpoint, response_data)
+mydb-# VALUES
+mydb-# ('/users/octocat', '{"login": "octocat", "id": 583231, "type": "User", "site_admin": false,
+"name": "The Octocat", "company": "@github", "followers": 17679}');
+mydb=# INSERT 0 1
+-- See all stored responses
+mydb=# SELECT * FROM api_responses;
+mydb=#
++----+----------------+------------------------------------------------------------------------------------------------------
+------------------------------------+----------------------------+
+| id | endpoint | response_data
+| created_at |
++----+----------------+------------------------------------------------------------------------------------------------------
+------------------------------------+----------------------------+
+| 1 | /users/octocat | {"login": "octocat", "id": 583231, "type": "User", "site_admin": false, "name":
+"The Octocat", "company": "@github", "followers": 17679} | 2025-04-23 09:24:29.376998 |
++----+----------------+------------------------------------------------------------------------------------------------------
+------------------------------------+----------------------------+
+(1 row)
+
+mydb=# -- Extract specific JSON fields
+mydb=# SELECT
+mydb-# endpoint,
+mydb-# response_data->>'login' AS username,
+mydb-# response_data->>'type' AS user_type,
+mydb-# response_data->>'followers' AS follower_count
+mydb-# FROM api_responses;
++----------------+----------+-----------+----------------+
+| endpoint | username | user_type | follower_count |
++----------------+----------+-----------+----------------+
+
+| /users/octocat | octocat | User | 17679 |
++----------------+----------+-----------+----------------+
+(1 row)
+mydb=# -- Find users with more than 1000 followers
+mydb=# SELECT
+mydb-# endpoint,
+mydb-# response_data->>'login' AS username,
+mydb-# (response_data->>'followers')::integer AS followers
+mydb-# FROM api_responses
+mydb-# WHERE (response_data->>'followers')::integer > 1000;
+mydb=#
++----------------+----------+-----------+
+| endpoint | username | followers |
++----------------+----------+-----------+
+| /users/octocat | octocat | 17679 |
++----------------+----------+-----------+
+(1 row)
+-- Find users with more than 1000 followers
+mydb=# SELECT
+mydb-# endpoint,
+mydb-# response_data->>'login' AS username,
+mydb-# (response_data->>'followers')::integer AS followers
+mydb-# FROM api_responses
+mydb-# WHERE (response_data->>'followers')::integer > 1000;
+mydb=#
++----------------+----------+-----------+
+| endpoint | username | followers |
++----------------+----------+-----------+
+| /users/octocat | octocat | 17679 |
++----------------+----------+-----------+
+(1 row)
+INSERT INTO api_responses (endpoint, response_data)
+mydb-# VALUES
+mydb-# ('/users/github', '{"login": "github", "id": 9919, "type": "Organization", "followers":
+25000, "public_repos": 100}'),
+mydb-# ('/users/test', '{"login": "test", "id": 123, "type": "User", "followers": 10, "public_repos":
+5}');
+INSERT 0 2
+mydb=# -- Find all users (not organizations)
+mydb=# SELECT
+mydb-# response_data->>'login' AS username,
+
+mydb-# response_data->>'type' AS account_type
+mydb-# FROM api_responses
+mydb-# WHERE response_data->>'type' = 'User';
+mydb=#
++----------+--------------+
+| username | account_type |
++----------+--------------+
+| octocat | User |
+| test | User |
++----------+--------------+
+(2 rows)
+-- Calculate average followers by account type
+mydb=# SELECT
+mydb-# response_data->>'type' AS account_type,
+mydb-# AVG((response_data->>'followers')::integer) AS avg_followers
+mydb-# FROM api_responses
+mydb-# GROUP BY response_data->>'type';
++--------------+-----------------------+
+| account_type | avg_followers |
++--------------+-----------------------+
+| User | 8844.5000000000000000 |
+| Organization | 25000.000000000000 |
++--------------+-----------------------+
+(2 rows)
+mydb=# -- Update JSON field
+mydb=# UPDATE api_responses
+mydb-# SET response_data = jsonb_set(
+mydb(# response_data::jsonb,
+mydb(# '{followers}',
+mydb(# '20000'
+mydb(# )::json
+mydb-# WHERE response_data->>'login' = 'octocat';
+UPDATE 1
+mydb=# CREATE INDEX idx_json_login ON api_responses ((response_data->>'login'));
+CREATE INDEX
+mydb=# CREATE VIEW github_users AS
+mydb-# SELECT
+mydb-# id,
+mydb-# endpoint,
+mydb-# response_data->>'login' AS username,
+mydb-# response_data->>'type' AS account_type,
+
+mydb-# (response_data->>'followers')::integer AS followers,
+mydb-# (response_data->>'public_repos')::integer AS public_repos,
+mydb-# created_at
+mydb-# FROM api_responses
+mydb-# WHERE endpoint LIKE '/users/%';
+CREATE VIEW
+mydb=# SELECT * FROM github_users;
+mydb=#
++----+----------------+----------+--------------+-----------+--------------+----------------------------+
+| id | endpoint | username | account_type | followers | public_repos | created_at |
++----+----------------+----------+--------------+-----------+--------------+----------------------------+
+| 2 | /users/github | github | Organization | 25000 | 100 | 2025-04-23 09:25:24.940711
+|
+| 3 | /users/test | test | User | 10 | 5 | 2025-04-23 09:25:24.940711 |
+| 1 | /users/octocat | octocat | User | 20000 | | 2025-04-23 09:24:29.376998 |
++----+----------------+----------+--------------+-----------+--------------+----------------------------+
+(3 rows)
+-- Top users by followers
+mydb=# SELECT username, followers
+mydb-# FROM github_users
+mydb-# ORDER BY followers DESC
+mydb-# LIMIT 5;
+mydb=#
++----------+-----------+
+| username | followers |
++----------+-----------+
+| github | 25000 |
+| octocat | 20000 |
+| test | 10 |
++----------+-----------+
+(3 rows)
+
+mydb=# -- Users created in the last 24 hours
+mydb=# SELECT username, created_at
+mydb-# FROM github_users
+mydb-# WHERE created_at > NOW() - INTERVAL '24 hours';
+mydb=#
++----------+----------------------------+
+| username | created_at |
++----------+----------------------------+
+| github | 2025-04-23 09:25:24.940711 |
+| test | 2025-04-23 09:25:24.940711 |
+
+| octocat | 2025-04-23 09:24:29.376998 |
++----------+----------------------------+
+(3 rows) 
