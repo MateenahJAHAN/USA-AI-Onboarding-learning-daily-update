@@ -1,0 +1,176 @@
+Q1: 
+sol:
+a = int(input())
+b = int(input())
+c = int(input())
+
+
+if (a+b+c) == 180:   
+    print(1)
+else:
+    print(0)
+Q2; 
+Sol: c = int(input())
+s = int(input())
+if s > c:
+    print(1)
+    print(s - c)
+else:
+    print(-1)
+    print(c - s)
+
+Q3: A = int(input())
+B = int(input())
+
+
+print(max(A, B))
+
+Q4: 
+age = int(input())
+
+
+if age >= 13:
+    print("You can ride the roller coaster!")
+else:
+    print("You can't ride the roller coaster.")
+
+
+  Q5: def date_format(date):
+    
+    date_parts = date.split('/')
+    
+
+    mm_dd_yyyy = date_parts[1] + '/' + date_parts[0] + '/' + date_parts[2]
+    
+    
+    yyyy_mm_dd = date_parts[2] + '/' + date_parts[1] + '/' + date_parts[0]
+    
+    
+    return (mm_dd_yyyy, yyyy_mm_dd)
+
+Q6: class Solution:
+    def solve(self, A: str, B: int, C: int) -> str:
+        
+        char_B = chr(B)
+        char_C = chr(C)
+        
+        
+        result = A.replace(char_B, char_C)
+        
+  
+        return result
+
+Q7: class Solution:
+    def solve(self, S):
+       
+        reversed_str = ""
+        for i in range(len(S) - 1, -1, -1):
+            reversed_str += S[i]
+        return reversed_str
+
+Q8: citizenship = input()
+age = int(input())
+if citizenship == "Indian" and age >= 18:
+    print(True)
+else:
+    print(False)
+
+Q9: def volume_sphere(r):
+    pi = 22 / 7
+    volume = (4 * pi * (r ** 3)) / 3
+    return round(volume, 2)
+
+10: def isvowel(C):
+    if C in ['a', 'e', 'i', 'o', 'u']:
+        return 1
+    else:
+        return 0
+
+11 I = 2
+N = int(input())
+while I <= N:
+    print(I, end = " ")
+    I = I + 2
+
+12: A = int(input())
+
+
+i = 1
+while i * i <= A:
+    print(i * i, end=" ")
+    i += 1
+
+13: 
+N = int(input())
+
+
+total = N * (N + 1) // 2
+
+
+print(total)
+
+
+14:N = int(input())
+
+
+print("*" * N)
+
+15: T = int(input())
+
+
+for _ in range(T):
+    N = input()  
+    print(len(N))
+
+16: N = int(input())
+
+for i in range(1, N + 1):
+    if i % 4 == 0:
+        print(i, end=" ")
+17:N = int(input())
+
+
+M = int(input())
+
+prep_time = N * 2
+
+
+total_time = prep_time + M
+
+
+print(total_time)
+
+18; N = int(input())
+
+
+time = N * 2
+
+
+print(time)
+
+19: N = int(input())
+
+
+M = int(input())
+
+
+total_value = N * M
+
+
+print(total_value)
+
+20 N = int(input())
+
+
+M = int(input())
+
+prep_time = N * 2
+
+
+total_time = prep_time + M
+
+
+print(total_time)
+
+        
+
