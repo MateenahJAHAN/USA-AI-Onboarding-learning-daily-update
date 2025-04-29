@@ -1,0 +1,169 @@
+# What I Learned Today
+
+1: API Test Automation Practice
+I began exploring API test automation based on FreeCodeCamp materials:
+
+Created a workspace named "FreeCodeCamp - API Test Automation"
+Learned how to extract data from responses, particularly focusing on order_ID
+Practiced writing pre-request and post-request scripts
+Used console.log for debugging API responses
+write t automation scripts
+Learned  about creating forks
+Explored status codes, products, and client-side interaction
+Finished the implementation of order creation and response handling
+I'm still implementing these concepts and will continue tomorrow 
+
+
+
+I also explored Twilio API https  from the first video tutorial that is also on postman with name tiwilio
+
+
+
+
+### Today I continued my journey into API interaction and testing, focusing on:
+
+Building a Flask API
+Creating and testing HTTP requests
+Using Postman for API testing
+### Beginning API test automation
+
+
+1. Python Requests Library
+I began by implementing a basic script to interact with the JSONPlaceholder API using Python's requests library.
+pythonimport requests
+import json
+print("Script is running!")
+
+def simple_request_demo():
+    """
+    A simple demonstration of basic GET and POST requests
+    """
+    print("===== Simple API Request Demo =====")
+    
+    # get
+    print("\nMaking a GET request...")
+    get_response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
+    print(f"Status code: {get_response.status_code}")
+    print("Response body:")
+    print(json.dumps(get_response.json(), indent=2))
+    
+    # post
+    print("\nMaking a POST request...")
+    post_data = {
+        'title': 'New Post',
+        'body': 'This is the content of my new post',
+        'userId': 1
+    }
+    post_response = requests.post(
+        'https://jsonplaceholder.typicode.com/posts', 
+        json=post_data
+    )
+    print(f"Status code: {post_response.status_code}")
+    print("Response body:")
+    print(json.dumps(post_response.json(), indent=2))
+
+if __name__ == "__main__":
+    simple_request_demo()
+
+#### output Output:
+Script is running!
+===== Simple API Request Demo =====
+
+Making a GET request...
+Status code: 200
+Response body:
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+
+Making a POST request...
+Status code: 201
+Response body:
+{
+  "title": "New Post",
+  "body": "This is the content of my new post",
+  "userId": 1,
+  "id": 101
+}
+
+
+2:  Flask API Implementation
+I built a custom Flask API to understand server-side API implementation. This API supports CRUD operations for a simple post management system.
+as i am sharing the file where you see the input for get/post/put/delete that i implemented 
+i am sharing the output 
+
+Flask API Server Output:
+Starting Flask API server...
+API available at http://127.0.0.1:5000/
+Available endpoints:
+  GET    /posts
+  GET    /posts/<id>
+  POST   /posts
+  PUT    /posts/<id>
+  DELETE /posts/<id>
+ * Debugger is active!
+ * Debugger PIN: 135-509-750
+ * Running on http://127.0.0.1:5000   (you can check the http in my postman too )
+
+3:  HTTP Requests (flask_api_test.http):
+http### Get all posts
+GET http://127.0.0.1:5000/posts
+
+### Get a single post
+GET http://127.0.0.1:5000/posts/1
+
+### Create a new post
+POST http://127.0.0.1:5000/posts
+Content-Type: application/json
+
+{
+  "title": "New Test Post",
+  "body": "This is a test post created via HTTP request",
+  "userId": 2
+}
+
+### Update a post
+PUT http://127.0.0.1:5000/posts/1
+Content-Type: application/json
+
+{
+  "title": "Updated First Post",
+  "body": "This content has been updated"
+}
+
+### Delete a post
+DELETE http://127.0.0.1:5000/posts/2
+
+
+challenges that i encountred 
+1. Issues Encountered:
+I initially had an error with my Flask API file:
+Traceback (most recent call last):
+  File "/Users/mateenahjahan/Documents/api_assignment/flask_api.py", line 1, in <module>
+    flask_api.py
+    ^^^^^^^^^
+NameError: name 'flask_api' is not defined
+The issue was caused by the filename being accidentally included in the file itself. I fixed this by creating a new file with the correct content.
+
+2. POST Request to Create a New Post:
+
+URL: http://127.0.0.1:5000/posts
+Method: POST
+Headers: Content-Type: application/json
+Body:
+
+json{
+  "title": "New Test Post",
+  "body": "This is a test post created via HTTP request",
+  "userId": 2
+}
+Initial Error:
+415 UNSUPPORTED MEDIA TYPE
+Did not attempt to load JSON data because the request Content-Type was not application/json
+This error occurred because I didn't properly set the Content-Type header in Postman. After adding the Content-Type header with value "application/json", the request succeeded.
+
+
+
