@@ -1,0 +1,27 @@
+print("\n--- Making a POST Request to JSONPlaceholder ---\n")
+
+import requests
+
+# api endpoint
+url = "https://jsonplaceholder.typicode.com/posts"
+
+ 
+payload = {
+    "title": "My Mentor is best",
+    "body": " His personality is inspiring",
+    "userId": 1
+}
+
+
+response = requests.post(url, json=payload)
+
+
+print("Status Code:", response.status_code)
+
+if response.status_code == 201:
+    print("✅ Post Created Successfully!")
+    print("📦 Response Data:")
+    print(response.json())
+else:
+    print("❌ Failed to create post. Response:")
+    print(response.text)
