@@ -13,7 +13,10 @@ print("Status Code:", response.status_code)
 
 # Check response
 if response.status_code == 200 or response.status_code == 204:
-    print("✅ Post deleted (simulated) successfully.")
+    print(" Post deleted (simulated) successfully.")
 else:
-    print("❌ Failed to delete post. Response:")
+    print("Failed to delete post. Response:")
     print(response.text)
+
+#response
+Status Code = 200
