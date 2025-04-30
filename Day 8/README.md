@@ -22,14 +22,20 @@ Endpoint: `https://api.openai.com/v1/chat/completions`
 import requests
 import json
 
-api_key = "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"  
 
+#  My openAI api
+api_key = "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"
+
+#  API Endpoint
 url = "https://api.openai.com/v1/chat/completions"
+
+#  Headers
 headers = {
     "Content-Type": "application/json",
     "Authorization": f"Bearer {api_key}"
 }
 
+#  Data (Prompt)
 data = {
     "model": "gpt-3.5-turbo",
     "messages": [
@@ -38,11 +44,21 @@ data = {
     "temperature": 0.7
 }
 
+#  POST Request
 response = requests.post(url, headers=headers, data=json.dumps(data))
 
+#  Debug Output
 print("Status Code:", response.status_code)
 print("Raw Response Text:")
 print(response.text)
+
+# If success, print response
+if response.status_code == 200:
+    result = response.json()
+    print("\n Response from OpenAI:\n", result['choices'][0]['message']['content'])
+else:
+    print(" Failed with status code:", response.status_code)
+ 
 
 Response Output
 Status Code: 429   
