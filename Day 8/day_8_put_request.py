@@ -20,9 +20,9 @@ response = requests.put(url, json=updated_data)
 print("Status Code:", response.status_code)
 
 if response.status_code == 200:
-    print("✅ Post updated successfully!")
-    print("📦 Updated Data:")
+    print(" Post updated successfully!")
+    print(" Updated Data:")
     print(response.json())
 else:
-    print("❌ Failed to update post. Response:")
+    print(" Failed to update post. Response:")
     print(response.text)
