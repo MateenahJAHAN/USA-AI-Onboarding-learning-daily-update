@@ -55,7 +55,8 @@ Status Code: 429
   }
 }
 
-2. GitHub API (via Python)
+## 2. __GitHub API (via Python)__
+
 Objective
 Use Python to send a GET request to the GitHub public events API and understand how to fetch and handle external API responses.
 
@@ -117,7 +118,8 @@ Objective
 Learn how to send a GET request to a public API (JSONPlaceholder) using Python, and understand how to work with JSON responses.
 API Used
 
-JSONPlaceholder Fake API
+## 3. __External API Practice: JSONPlaceholder API (via Python)__
+
 Endpoint: https://jsonplaceholder.typicode.com/posts
 (Returns a list of fake blog posts in JSON format used for testing and practice)
 
