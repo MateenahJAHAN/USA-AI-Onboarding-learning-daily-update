@@ -36,4 +36,4 @@ if response.status_code == 200:
     reply = result['choices'][0]['message']['content']
     print("\nOpenAI's Response:\n", reply)
 else:
-    print("❌ Failed with status code:", response.status_code)
+    print(" Failed with status code:", response.status_code)
