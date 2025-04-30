@@ -1,18 +1,14 @@
-#  Day 8 
-1  External API Integration: OpenAI (via Python)
+# Day 8 
+## 1. External API Integration: OpenAI (via Python)
 
-##  Objective
+### Objective
 Practice calling an external API (OpenAI Chat Completion API) using Python's `requests` module to understand authentication, response handling, and error codes.
 
-
-
-##  API Used
+### API Used
 OpenAI Chat API
-  Endpoint: `https://api.openai.com/v1/chat/completions`
+Endpoint: `https://api.openai.com/v1/chat/completions`
 
-
-
-## Methodology
+### Methodology
 - Language: Python 3.13
 - Library: `requests`, `json`
 - HTTP Method: `POST`
@@ -20,15 +16,13 @@ OpenAI Chat API
 - Prompt sent: `"Tell me a joke about cats"`
 - Authentication: Bearer Token via Authorization Header
 
+### Python Code
 
-
-##  Python Code
-
-python
+```python
 import requests
 import json
 
-api_key = "sk-xxxxxxxx"  # (secured)
+api_key = "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"  
 
 url = "https://api.openai.com/v1/chat/completions"
 headers = {
@@ -50,11 +44,8 @@ print("Status Code:", response.status_code)
 print("Raw Response Text:")
 print(response.text)
 
-
-### Response Output
-json
-Copy
-Status Code: 429   ### it occured because i used all free api keys 3 days ago 
+Response Output
+Status Code: 429   
 
 {
   "error": {
@@ -64,41 +55,28 @@ Status Code: 429   ### it occured because i used all free api keys 3 days ago
   }
 }
 
+2. GitHub API (via Python)
+Objective
+Use Python to send a GET request to the GitHub public events API and understand how to fetch and handle external API responses.
 
+API Used
+GitHub Events API
+Endpoint: https://api.github.com/events
+Method
 
+Language: Python
+Library: requests
+HTTP Method: GET
+Authentication:  Not required (Public API)
+Response Format: JSON (List of public GitHub events)
 
-2 ### GitHub API (via Python)
-##  Objective
-Use Python to send a `GET` request to the GitHub public events API and understand how to fetch and handle external API responses.
-
----
-
-##  API Used
-**GitHub Events API**  
-  Endpoint: `https://api.github.com/events`
-
-
-
-##  Method
-- Language: Python
-- Library: `requests`
-- HTTP Method: `GET`
-- Authentication: ❌ Not required (Public API)
-- Response Format: JSON (List of public GitHub events)
-
-
-
-##  Python Script code that i wrote 
-
-```python
+Python Script code that I wrote
 import requests
-
 
 url = "https://api.github.com/events"
 
-#  i Make GET request
+# Make GET request
 response = requests.get(url)
-
 
 print("Status Code:", response.status_code)
 
@@ -110,9 +88,7 @@ if response.status_code == 200:
 else:
     print("Failed to fetch data. Response:")
     print(response.text)
-
-### output i got 
-
+Output I got
 Status Code: 200
 First Public Event:
 {
@@ -129,57 +105,43 @@ First Public Event:
   ...
 }
 
-
-### Learning Outcomes
+Learning Outcomes
 
 Learned how to use requests.get() in Python to call a real API
-
 Understood that some APIs can be accessed without login or an API key (public APIs)
-
 Learned how to convert API response from JSON format into Python dictionaries or lists
-
 Practiced printing specific parts of the API response (like the first item)
 
+3. External API Practice: JSONPlaceholder API (via Python)
+Objective
+Learn how to send a GET request to a public API (JSONPlaceholder) using Python, and understand how to work with JSON responses.
+API Used
 
+JSONPlaceholder Fake API
+Endpoint: https://jsonplaceholder.typicode.com/posts
+(Returns a list of fake blog posts in JSON format used for testing and practice)
 
-3:### External API Practice: JSONPlaceholder API (via Python)
+Method
 
-##  Objective
-Learn how to send a `GET` request to a public API (JSONPlaceholder) using Python, and understand how to work with JSON responses.
+Language: Python
+Library: requests
+HTTP Method: GET
+Authentication:  Not required (public API)
+Response Format: JSON (list of post dictionaries)
 
-
-
-## API Used
-- **JSONPlaceholder Fake API**  
-  Endpoint: `https://jsonplaceholder.typicode.com/posts`  
- # Returns a list of fake blog posts in JSON format (used for testing and practice)
-
----
-
-##  Method
-- Language: Python
-- Library: `requests`
-- HTTP Method: `GET`
-- Authentication: ❌ Not required (public API)
-- Response Format: JSON (list of post dictionaries)
-
----
-
-## Python Script that i wrote 
-
-```python
+Python Script that I wrote
 import requests
 
 # API Endpoint
 url = "https://jsonplaceholder.typicode.com/posts"
 
-#  i Send GET request
+# Send GET request
 response = requests.get(url)
 
-# for status 
+# Print status 
 print("Status Code:", response.status_code)
 
-# 
+# Handle response
 if response.status_code == 200:
     data = response.json()
     print("First Post:")
@@ -187,75 +149,57 @@ if response.status_code == 200:
 else:
     print("Failed to fetch data. Response:")
     print(response.text)
-
-
-output that i got is
+Output that I got
 {
   "userId": 1,
   "id": 1,
   "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
   "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum..."
 }
-
-
-3.1: ##  JSONPlaceholder API – POST Request
-
-###  Task
-i Send a fake blog post using Python `requests.post()` to `https://jsonplaceholder.typicode.com/posts`.
-
-###  Data Sent
-```json
+3.1 JSONPlaceholder API – POST Request
+Task
+Send a fake blog post using Python requests.post() to https://jsonplaceholder.typicode.com/posts.
+Data Sent
 {
   "title": "My Mentor is best",
   "body": "His personality is inspiring",
   "userId": 1
 }
+Output/Response
 
-### output or response 
 Status Code: 201 Created
-
 Returned fake post ID: 101
-
 Practiced sending data to an external API using POST
-
 Understood response codes (201) and payload structure
 
-3.2 ## ##  JSONPlaceholder API – DELETE Request
+3.2 JSONPlaceholder API – DELETE Request
+Task
+Send a DELETE request to remove post with ID 1 from https://jsonplaceholder.typicode.com/posts/1.
+Response
 
-###  Task
-Send a DELETE request to remove post with ID `1` from `https://jsonplaceholder.typicode.com/posts/1`.
+Status Code: 200 OK
+Note: JSONPlaceholder fakes the delete; data isn't really removed.
+Learning
 
-###  Response
--  Status Code: `200 OK`
-- Note: JSONPlaceholder fakes the delete; data isn’t really removed.
+Practiced sending a DELETE request using requests.delete()
+Understood simulated deletion behavior with 200/204 status codes
 
-###  Learning
- Practiced sending a DELETE request using `requests.delete()`
-Understood simulated deletion behavior with `200/204` status codes
-
-3.3  JSONPlaceholder API – PUT Request
-
-###  Task
-Update an existing post (ID 1) using Python `requests.put()`.
-
-###  Data Sent
-```json
+3.3 JSONPlaceholder API – PUT Request
+Task
+Update an existing post (ID 1) using Python requests.put().
+Data Sent
 {
   "id": 1,
   "title": "Hey Tom I am very thankful to you",
   "body": "Tom your best teacher.",
   "userId": 1
 }
+Response
 
-### response 
 Status Code: 200 OK
-
 API returned the updated post (simulated)
+
 Learning
+
 Practiced using PUT method to update data
-
 Understood idempotent requests and full object replacement
-
-
-
-### 
