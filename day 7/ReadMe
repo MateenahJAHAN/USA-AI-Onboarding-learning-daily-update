@@ -1,33 +1,15 @@
-# Day 7 Learning: API Testing and Implementation
+Day 9 Learning: API Testing and Implementation
+Overview
+Today I continued my journey into API interaction and testing, focusing on:
 
-## Overview
-Today I continued my journey exploring API interaction and testing, focusing on:
-- Building a Flask API
-- Creating and testing HTTP requests
-- Using Postman for API testing
-- Beginning API test automation
+Building a Flask API
+Creating and testing HTTP requests
+Using Postman for API testing
+Beginning API test automation
 
-## 1. API Test Automation Practice
-
-I began exploring API test automation based on FreeCodeCamp materials:
-
-- Created a workspace named "FreeCodeCamp - API Test Automation"
-- Learned how to extract data from responses, particularly focusing on `order_ID`
-- Practiced writing pre-request and post-request scripts
-- Used `console.log` for debugging API responses
-- Wrote test automation scripts
-- Learned about creating forks
-- Explored status codes, products, and client-side interaction
-- Finished the implementation of order creation and response handling
-
-I also explored the Twilio API from a video tutorial available on Postman.
-
-## 2. Python Requests Library
-
-I implemented a basic script to interact with the JSONPlaceholder API using Python's requests library:
-
-```python
-import requests
+1. Python Requests Library
+I began by implementing a basic script to interact with the JSONPlaceholder API using Python's requests library.
+pythonimport requests
 import json
 print("Script is running!")
 
@@ -61,10 +43,7 @@ def simple_request_demo():
 
 if __name__ == "__main__":
     simple_request_demo()
-```
-
-### Output:
-```
+Output:
 Script is running!
 ===== Simple API Request Demo =====
 
@@ -87,14 +66,9 @@ Response body:
   "userId": 1,
   "id": 101
 }
-```
-
-## 3. Flask API Implementation
-
+2. Flask API Implementation
 I built a custom Flask API to understand server-side API implementation. This API supports CRUD operations for a simple post management system.
-
-### Flask API Server Output:
-```
+Flask API Server Output:
 Starting Flask API server...
 API available at http://127.0.0.1:5000/
 Available endpoints:
@@ -106,14 +80,9 @@ Available endpoints:
  * Debugger is active!
  * Debugger PIN: 135-509-750
  * Running on http://127.0.0.1:5000
-```
-
-## 4. HTTP Requests Testing
-
-I created a test file (`flask_api_test.http`) to test the Flask API endpoints:
-
-```http
-### Get all posts
+3. HTTP Requests Testing
+Created a test file (flask_api_test.http) to test all CRUD operations on the Flask API:
+http### Get all posts
 GET http://127.0.0.1:5000/posts
 
 ### Get a single post
@@ -140,50 +109,30 @@ Content-Type: application/json
 
 ### Delete a post
 DELETE http://127.0.0.1:5000/posts/2
-```
-
-## Challenges Encountered
-
-### 1. Flask API File Error
-
-I initially encountered this error with my Flask API file:
-
-```
+Challenges Encountered and Solutions
+1. Flask API Script Error
+Issue:
 Traceback (most recent call last):
   File "/Users/mateenahjahan/Documents/api_assignment/flask_api.py", line 1, in <module>
     flask_api.py
     ^^^^^^^^^
 NameError: name 'flask_api' is not defined
-```
-
-**Issue:** The filename was accidentally included in the file itself.
-**Solution:** Created a new file with the correct content.
-
-### 2. POST Request Error
-
-When attempting to create a new post:
-
-- **URL:** http://127.0.0.1:5000/posts
-- **Method:** POST
-- **Headers:** Content-Type: application/json
-- **Body:**
-  ```json
-  {
-    "title": "New Test Post",
-    "body": "This is a test post created via HTTP request",
-    "userId": 2
-  }
-  ```
-
-I received this error:
-```
+Solution:
+The error was caused by accidental inclusion of the filename in the file itself. Created a new file with the correct content to resolve this issue.
+2. POST Request Content-Type Error
+Issue:
+When making POST requests to the Flask API:
 415 UNSUPPORTED MEDIA TYPE
 Did not attempt to load JSON data because the request Content-Type was not application/json
-```
+Solution:
+The error occurred because the Content-Type header wasn't properly set in Postman. Added the appropriate header (Content-Type: application/json) which resolved the issue.
+Previous Work (Day 7)
+I previously explored API test automation with FreeCodeCamp materials:
 
-**Issue:** Content-Type header was missing in Postman.
-**Solution:** Added the Content-Type header with value "application/json".
-
-## Next Steps
-
-I'll continue implementing these concepts tomorrow and explore more advanced API testing scenarios.
+Created a workspace named "FreeCodeCamp - API Test Automation"
+Learned how to extract data from API responses (focusing on order_ID)
+Practiced writing pre-request and post-request scripts
+Used console.log for debugging API responses
+Explored status codes, products, and client-side interaction
+Implemented order creation and response handling
+Also explored the Twilio API through a video tutorial
