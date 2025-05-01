@@ -1,138 +1,111 @@
-Day 9 Learning: API Testing and Implementation
+Day 7 Learning: API Test Automation Exploration
 Overview
-Today I continued my journey into API interaction and testing, focusing on:
+Today I focused on exploring API test automation fundamentals and initial implementation:
 
-Building a Flask API
-Creating and testing HTTP requests
-Using Postman for API testing
-Beginning API test automation
+Working with FreeCodeCamp API testing materials
+Learning about request/response handling
+Experimenting with Twilio API
+Setting up automation scripts
 
-1. Python Requests Library
-I began by implementing a basic script to interact with the JSONPlaceholder API using Python's requests library.
-pythonimport requests
-import json
-print("Script is running!")
-
-def simple_request_demo():
-    """
-    A simple demonstration of basic GET and POST requests
-    """
-    print("===== Simple API Request Demo =====")
-    
-    # get
-    print("\nMaking a GET request...")
-    get_response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
-    print(f"Status code: {get_response.status_code}")
-    print("Response body:")
-    print(json.dumps(get_response.json(), indent=2))
-    
-    # post
-    print("\nMaking a POST request...")
-    post_data = {
-        'title': 'New Post',
-        'body': 'This is the content of my new post',
-        'userId': 1
-    }
-    post_response = requests.post(
-        'https://jsonplaceholder.typicode.com/posts', 
-        json=post_data
-    )
-    print(f"Status code: {post_response.status_code}")
-    print("Response body:")
-    print(json.dumps(post_response.json(), indent=2))
-
-if __name__ == "__main__":
-    simple_request_demo()
-Output:
-Script is running!
-===== Simple API Request Demo =====
-
-Making a GET request...
-Status code: 200
-Response body:
-{
-  "userId": 1,
-  "id": 1,
-  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-}
-
-Making a POST request...
-Status code: 201
-Response body:
-{
-  "title": "New Post",
-  "body": "This is the content of my new post",
-  "userId": 1,
-  "id": 101
-}
-2. Flask API Implementation
-I built a custom Flask API to understand server-side API implementation. This API supports CRUD operations for a simple post management system.
-Flask API Server Output:
-Starting Flask API server...
-API available at http://127.0.0.1:5000/
-Available endpoints:
-  GET    /posts
-  GET    /posts/<id>
-  POST   /posts
-  PUT    /posts/<id>
-  DELETE /posts/<id>
- * Debugger is active!
- * Debugger PIN: 135-509-750
- * Running on http://127.0.0.1:5000
-3. HTTP Requests Testing
-Created a test file (flask_api_test.http) to test all CRUD operations on the Flask API:
-http### Get all posts
-GET http://127.0.0.1:5000/posts
-
-### Get a single post
-GET http://127.0.0.1:5000/posts/1
-
-### Create a new post
-POST http://127.0.0.1:5000/posts
-Content-Type: application/json
-
-{
-  "title": "New Test Post",
-  "body": "This is a test post created via HTTP request",
-  "userId": 2
-}
-
-### Update a post
-PUT http://127.0.0.1:5000/posts/1
-Content-Type: application/json
-
-{
-  "title": "Updated First Post",
-  "body": "This content has been updated"
-}
-
-### Delete a post
-DELETE http://127.0.0.1:5000/posts/2
-Challenges Encountered and Solutions
-1. Flask API Script Error
-Issue:
-Traceback (most recent call last):
-  File "/Users/mateenahjahan/Documents/api_assignment/flask_api.py", line 1, in <module>
-    flask_api.py
-    ^^^^^^^^^
-NameError: name 'flask_api' is not defined
-Solution:
-The error was caused by accidental inclusion of the filename in the file itself. Created a new file with the correct content to resolve this issue.
-2. POST Request Content-Type Error
-Issue:
-When making POST requests to the Flask API:
-415 UNSUPPORTED MEDIA TYPE
-Did not attempt to load JSON data because the request Content-Type was not application/json
-Solution:
-The error occurred because the Content-Type header wasn't properly set in Postman. Added the appropriate header (Content-Type: application/json) which resolved the issue.
-Previous Work (Day 7)
-I previously explored API test automation with FreeCodeCamp materials:
+API Test Automation Practice
+I began exploring API test automation based on FreeCodeCamp materials:
 
 Created a workspace named "FreeCodeCamp - API Test Automation"
-Learned how to extract data from API responses (focusing on order_ID)
+Learned how to extract data from responses, particularly focusing on order_ID
 Practiced writing pre-request and post-request scripts
 Used console.log for debugging API responses
-Explored status codes, products, and client-side interaction
-Implemented order creation and response handling
-Also explored the Twilio API through a video tutorial
+
+Key Concepts Learned
+
+Status code validation and handling
+Product information extraction
+Client-side interaction patterns
+Order creation and response processing
+Creating forks of existing collections
+
+Twilio API Exploration
+Started exploring the Twilio API:
+
+Followed the first video tutorial
+Implemented examples in Postman
+Created a collection for Twilio-specific requests
+Code Implementation
+
+Example of a basic pre-request script for authentication:
+// Pre-request Script for Authentication
+pm.environment.set("timestamp", Date.now());
+const signature = CryptoJS.HmacSHA256(
+    pm.environment.get("apiKey") + 
+    pm.environment.get("timestamp"), 
+    pm.environment.get("secretKey")
+).toString();
+pm.environment.set("signature", signature);
+
+Example of a post-request test script:
+
+// Post-request Test Script
+pm.test("Status code is 200", function() {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response contains order_ID", function() {
+    const responseData = pm.response.json();
+    pm.expect(responseData).to.have.property('order_ID');
+    
+    // Store order_ID for future requests
+    if (responseData.order_ID) {
+        pm.environment.set("orderId", responseData.order_ID);
+        console.log("Saved order_ID: " + responseData.order_ID);
+    }
+});
+
+
+Basic Python Requests Example
+
+import requests
+import json
+
+# Basic API request demonstration
+response = requests.get('https://jsonplaceholder.typicode.com/todos/1')
+data = response.json()
+
+# Print the response
+print(f"Status Code: {response.status_code}")
+print(f"Task: {data['title']}")
+print(f"Completed: {data['completed']}")
+
+# Post example
+new_task = {
+    "userId": 1,
+    "title": "Learn API Testing",
+    "completed": False
+}
+
+post_response = requests.post(
+    'https://jsonplaceholder.typicode.com/todos',
+    json=new_task
+)
+
+print(f"Post Status: {post_response.status_code}")
+print(f"New Task ID: {post_response.json()['id']}")
+
+Challenges & Solutions
+Challenge 1: Authentication Issues
+Initial attempts at authentication were unsuccessful due to improper header formatting.
+Solution:
+// Corrected Authentication Header Setup
+pm.request.headers.add({
+    key: 'Authorization',
+    value: 'Bearer ' + pm.environment.get("authToken")
+});
+
+Challenge 2: Response Handling
+Had difficulty extracting nested data from complex JSON responses.
+Solution:
+javascript// Improved Response Parsing
+const jsonData = pm.response.json();
+// Access nested properties safely using optional chaining
+const orderDetails = jsonData.data?.orders?.[0];
+if (orderDetails) {
+    pm.environment.set("lastOrderId", orderDetails.id);
+}
