@@ -5,7 +5,7 @@ lat = 34.0837
 lon = 74.7973
 
 # my API key
-api_key = "9b5a722f72bf70e91afc8b1b2efe206c"
+api_key = "secret key"
 
 # Weather API URL
 url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
