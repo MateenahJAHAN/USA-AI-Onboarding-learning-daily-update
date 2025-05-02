@@ -2,7 +2,7 @@ import requests
 import json
 
 # i write my api key that i generated from openai
-api_key = "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"  # (secured)
+api_key = "secret key  # (secured)
 
 
 url = "https://api.openai.com/v1/chat/completions"
@@ -10,7 +10,7 @@ url = "https://api.openai.com/v1/chat/completions"
 
 headers = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {api_key}"
+    "Authorization": f"Bearer {secret key}"
 }
 
 
