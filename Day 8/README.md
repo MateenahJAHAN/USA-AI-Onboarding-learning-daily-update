@@ -24,7 +24,7 @@ import json
 
 
 #  My openAI api
-api_key = "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"
+api_key = "secret key"
 
 #  API Endpoint
 url = "https://api.openai.com/v1/chat/completions"
