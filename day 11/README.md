@@ -106,5 +106,4 @@ Verifying in browser before testing in Postman
 
 ##  Files To Be Uploaded in Day 11
 - `main.py` for FastAPI CRUD
-- Postman collection + environment JSON
 - Python Colab notebook (Tuples and Sets practice)
