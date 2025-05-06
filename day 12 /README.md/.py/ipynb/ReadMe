@@ -1,26 +1,26 @@
+# Day 12 Progress
+
 Today I focused on strengthening my Python fundamentals, practicing with external APIs, and documenting everything in Google Colab and Postman.
-Python Practice (Dictionaries, Functions, OOP)
 
-Sources: Scaler module exercises + LLM-generated problems
-Environment: Google Colab notebooks
+## Python Practice (Dictionaries, Functions, OOP)
+* **Sources:** Scaler module exercises + LLM-generated problems
+* **Environment:** Google Colab notebooks
 
-Topics covered:
+**Topics covered:**
+1. **Dictionaries & Functions:**
+2. **Object-Oriented Programming:**
 
-Dictionaries & Functions:
-Object-Oriented Programming:
+*Notebooks:*
+* `function_and_dict_practice_day12.ipynb`
 
-Notebooks:
+## External API Practice
 
-function_and_dict_practice_day12.ipynb
-
-External API Practice
-1. OpenAI Chat Completion API
-
-Setup in VS Code (openai-demo folder):
-
-.env file with OPENAI_API_KEY
-chat_completion.py using v1 client:
-
+### 1. OpenAI Chat Completion API
+* **Setup in VS Code (`openai-demo` folder)**:
+  * `.env` file with `OPENAI_API_KEY`
+  * `chat_completion.py` using v1 client:
+  
+```python
 from openai import OpenAI
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 response = client.chat.completions.create(
@@ -28,67 +28,56 @@ response = client.chat.completions.create(
     messages=[...]
 )
 print(response.choices[0].message.content)
+```
 
-Error faced: 429 RateLimitError due to exhausted quota
+* **Error faced:** 429 RateLimitError due to exhausted quota
 
-
+```python
 openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota'...}}
+```
 
-2. JSONPlaceholder API
+* **Solution:** Checked OpenAI usage dashboard, wrapped calls in `try/except`, created minimal `max_tokens` requests for testing.
 
-Python script (json-demo/get_posts.py):
+### 2. JSONPlaceholder API
+* **Python script (`json-demo/get_posts.py`)**:
+
+```python
 load_dotenv()
 BASE_URL = os.getenv("BASE_URL")  
 response = requests.get(f"{BASE_URL}/posts")
 posts = response.json()
 print(f"Got {len(posts)} posts. First post ID: {posts[0]['id']}")
-Postman:
+```
 
-Used existing JSON-Env with BASE_URL
-Created new collection JSON Demo
-Verified status codes: GET → 200, POST → 201, PUT → 200, DELETE → 200
+* **Postman**:
+  * Used existing `JSON-Env` with `BASE_URL`
+  * Created new collection **JSON Demo**
+  * Verified status codes: GET → 200, POST → 201, PUT → 200, DELETE → 200
 
+### 3. Weather API / Github API (previous work day 10)
+* **Script & Postman:** Already set up a weather API and Github api call in Python and Postman with environment/collection; available under **Weather-api and github api crud**.
 
+## GitHub
+* Pushed all notebooks, scripts, and README to GitHub under branch `day12-update`:
+  * `function_and_dict_practice_day12.ipynb`
+  * `chat_completion.py`, `.env.example`
+  * `get_posts.py`, `json_client.py`, `.env.example`
 
-3. Weather API / Github API (previous work day 10)
+## Challenges & Solutions
+1. **Rate limit on OpenAI**
+   * **Problem:** 429 error (insufficient_quota)
+   * **Fix:** Checked billing, used small `max_tokens`, added error handling
 
-Script & Postman: Already set up a weather API and Github api call in Python and Postman with environment/collection; available under Weather-api and github api crud.
-GitHub
+2. **Environment variable loading**
+   * **Problem:** `BASE_URL` was `None`
+   * **Fix:** Explicitly loaded `.env` via `load_dotenv(dotenv_path=...)`, printed debug value
 
-Pushed all notebooks, scripts, and README to GitHub under branch day12-update:
+3. **Hidden newline in Postman URL**
+   * **Problem:** 404 due to `%0A` in URL
+   * **Fix:** Removed trailing whitespace in `{{BASE_URL}}/posts`, verified in Postman Console
 
-function_and_dict_practice_day12.ipynb
-chat_completion.py, .env.example
-get_posts.py, json_client.py, .env.example
+4. **Folder naming issues**
+   * **Problem:** Extra spaces in folder paths caused `cd` errors
+   * **Fix:** Renamed folders (`openai-demo`, `json-demo`), reopened correct root in VS Code
 
-
-
-Challenges & Solutions
-
-Rate limit on OpenAI
-
-Problem: 429 error (insufficient_quota)
-Fix: Checked billing, used small max_tokens, added error handling
-
-
-Environment variable loading
-
-Problem: BASE_URL was None
-Fix: Explicitly loaded .env via load_dotenv(dotenv_path=...), printed debug value
-
-
-Hidden newline in Postman URL
-
-Problem: 404 due to %0A in URL
-Fix: Removed trailing whitespace in {{BASE_URL}}/posts, verified in Postman Console
-
-
-Folder naming issues
-
-Problem: Extra spaces in folder paths caused cd errors
-Fix: Renamed folders (openai-demo, json-demo), reopened correct root in VS Code
-
-
-
-All tasks completed in simple, step-by-step practice format!RetryClaude can make mistakes. Please double-check responses.
-
+*All tasks completed in simple, step-by-step practice format!*
