@@ -61,7 +61,7 @@ from dotenv import load_dotenv
 import os, requests
 
 load_dotenv()
-BASE_URL = os.getenv("BASE_URL")  # https://jsonplaceholder.typicode.com
+BASE_URL = os.getenv("BASE_URL")  
 response = requests.get(f"{BASE_URL}/posts")
 posts = response.json()
 print(f"Got {len(posts)} posts. First post ID: {posts[0]['id']}")
