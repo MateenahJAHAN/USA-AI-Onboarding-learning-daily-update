@@ -11,7 +11,7 @@ Today I focused on strengthening my Python fundamentals, practicing with externa
 2. **Object-Oriented Programming:**
 
 *Notebooks:*
-* function_and_dict_practice_day12.ipynb
+* `function_and_dict_practice_day12.ipynb`
 
 ## External API Practice
 
@@ -19,30 +19,36 @@ Today I focused on strengthening my Python fundamentals, practicing with externa
 * **Setup in VS Code (`openai-demo` folder)**:
   * `.env` file with `OPENAI_API_KEY`
   * `chat_completion.py` using v1 client:
-  ```python
-  from openai import OpenAI
-  client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-  response = client.chat.completions.create(
-      model="gpt-3.5-turbo",
-      messages=[...]
-  )
-  print(response.choices[0].message.content)
-  ```
+  
+```python
+from openai import OpenAI
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[...]
+)
+print(response.choices[0].message.content)
+```
+
 * **Error faced:** 429 RateLimitError due to exhausted quota
-  ```python
-  openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota'...}}
-  ```
+
+```python
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota'...}}
+```
+
 * **Solution:** Checked OpenAI usage dashboard, wrapped calls in `try/except`, created minimal `max_tokens` requests for testing.
 
 ### 2. JSONPlaceholder API
 * **Python script (`json-demo/get_posts.py`)**:
-  ```python
-  load_dotenv()
-  BASE_URL = os.getenv("BASE_URL")  
-  response = requests.get(f"{BASE_URL}/posts")
-  posts = response.json()
-  print(f"Got {len(posts)} posts. First post ID: {posts[0]['id']}")
-  ```
+
+```python
+load_dotenv()
+BASE_URL = os.getenv("BASE_URL")  
+response = requests.get(f"{BASE_URL}/posts")
+posts = response.json()
+print(f"Got {len(posts)} posts. First post ID: {posts[0]['id']}")
+```
+
 * **Postman**:
   * Used existing `JSON-Env` with `BASE_URL`
   * Created new collection **JSON Demo**
