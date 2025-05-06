@@ -7,15 +7,15 @@ from pathlib import Path
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# 2) Read and print BASE_URL so we can debug
+# 2) for debug 
 BASE_URL = os.getenv("BASE_URL")
 print("DEBUG: BASE_URL =", repr(BASE_URL))
 
-# 3) Only proceed if BASE_URL loaded correctly
+# 
 if not BASE_URL:
     raise ValueError("BASE_URL is not set—check your .env file")
 
-# 4) Make the request
+# 4) now  making the request
 response = requests.get(f"{BASE_URL}/posts")
 response.raise_for_status()
 posts = response.json()
