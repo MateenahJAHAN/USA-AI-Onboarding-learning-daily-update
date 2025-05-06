@@ -1,7 +1,7 @@
 # Day 10 – GitHub API, OpenAI API & Python Practice
 
 ## API Key Security Reminder
-As advised, **API keys must never be shared or exposed**.  
+As advised, **API keys must never be shared or exposed**. 
 Today, all authentication was handled using **Postman Environment Variables** (marked as `secret`) and securely passed in headers.
 - My OpenWeatherMap key used earlier has been revoked.
 - For GitHub and OpenAI APIs, I used secure tokens handled only in code or Postman environment.
