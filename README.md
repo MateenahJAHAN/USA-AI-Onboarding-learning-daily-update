@@ -230,4 +230,4 @@ This project is for demonstration and educational purposes.
 ## Author
 
 **Mateenah Jahan**
-AI Scientist candidate — building intelligent agents for clinical data extraction.
+building intelligent agents for clinical data extraction.
