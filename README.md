@@ -5,6 +5,7 @@ This repository showcases clinical LLM agent prototypes that extract structured
 data from unstructured clinical inputs (notes, forms, PDFs). It demonstrates
 end-to-end workflows that combine ingestion, LLM orchestration, and API delivery
 for clinical documentation and analytics use cases.
+Built while working with USA.AI as part of their onboarding learning program.
 
 ## Why this matters
 - Reduce manual chart review and abstraction time.
