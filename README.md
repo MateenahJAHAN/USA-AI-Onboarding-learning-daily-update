@@ -77,7 +77,8 @@ Response:
 
 ## Repository Layout
 Primary implementation lives in `src/`. Legacy day-based learning logs are kept
-for historical context, but the production-ready code path is under `/src`.
+in `/learning_logs` for historical context, but the production-ready code path
+is under `/src`.
 
 ```
 /src
