@@ -22,6 +22,34 @@ for clinical documentation and analytics use cases.
 - OpenAI API (or similar LLM provider)
 - Model Context Protocol (MCP)
 
+## Quickstart
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export OPENAI_API_KEY="your_key_here"
+python -m src.api.app
+```
+
+Example request:
+```bash
+curl -X POST http://localhost:8000/extract \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Patient presents with chest pain and shortness of breath."}'
+```
+
+For local development without an API key:
+```bash
+export CLINICAL_AGENT_MOCK=1
+python -m src.api.app
+```
+
+## Testing
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## High-Level Architecture
 ```
 PDF/Note -> Text Extractor -> LLM Agent -> Schema Validation -> API Response
@@ -47,8 +75,9 @@ Response:
 }
 ```
 
-## Refactored Code Structure (File Plan)
-Replace the "Day 1/Day 2/Day 3" folders with a product-style layout:
+## Repository Layout
+Primary implementation lives in `src/`. Legacy day-based learning logs are kept
+for historical context, but the production-ready code path is under `/src`.
 
 ```
 /src
@@ -68,13 +97,12 @@ Replace the "Day 1/Day 2/Day 3" folders with a product-style layout:
   /utils
     pdf_loader.py         # PDF text extraction utilities
     logging.py
-/data
-  /samples                # Sample PDFs or JSON fixtures
 /tests
   test_api.py
-  test_agents.py
 /docs
   architecture.md
+/requirements.txt
+/Dockerfile
 ```
 
 ### Suggested migration examples
@@ -84,42 +112,18 @@ Replace the "Day 1/Day 2/Day 3" folders with a product-style layout:
 - `day 6/flask loan api builder` -> `src/api/`
 - `day 8/day_8_github_api.py` -> `docs/` (reference examples)
 
-## Template: main `app.py` (Flask API Entry Point)
-Use this as a starting point for a production-style Flask entry point that
-invokes an LLM agent (assumes `src/` is on `PYTHONPATH`):
+## Results / Metrics (Initial Evaluation Plan)
+Evaluation set (proposed):
+- 15 de-identified notes (5 discharge summaries, 5 progress notes,
+  5 imaging summaries)
 
-```python
-from flask import Flask, jsonify, request
-from agents.clinical_agent import ClinicalAgent
+Metrics to report:
+- Schema validity rate
+- Field-level precision/recall/F1 for diagnoses and medications
+- Extraction coverage for key fields (patient, meds, diagnoses)
 
-
-def create_app() -> Flask:
-    app = Flask(__name__)
-    agent = ClinicalAgent()
-
-    @app.route("/health", methods=["GET"])
-    def health():
-        return jsonify({"status": "ok"}), 200
-
-    @app.route("/extract", methods=["POST"])
-    def extract():
-        payload = request.get_json(silent=True) or {}
-        text = payload.get("text", "").strip()
-
-        if not text:
-            return jsonify({"error": "text is required"}), 400
-
-        # The agent returns a structured JSON payload
-        result = agent.extract_structured_data(text)
-        return jsonify(result), 200
-
-    return app
-
-
-if __name__ == "__main__":
-    app = create_app()
-    app.run(host="0.0.0.0", port=8000, debug=False)
-```
+Current results:
+- TBD (pending evaluation harness and gold labels)
 
 ## Quality, Safety, and Reliability (Planned)
 - Schema-first outputs (Pydantic) to reduce hallucinations.
@@ -128,10 +132,10 @@ if __name__ == "__main__":
 
 ## Roadmap (Short-Term)
 - Migrate day-based scripts into `/src` modules.
-- Add Pydantic schemas and unit tests for extraction outputs.
-- Add a minimal MCP server and tool wiring.
-- Provide a Dockerfile for reproducible deployment.
+- Add evaluation harness and gold labels for metrics reporting.
+- Expand MCP tool registry for retrieval and knowledge base lookups.
+- Add CI for linting and tests.
 
 ---
-If you want, I can implement the refactor and add a minimal `ClinicalAgent`
-implementation with real OpenAI API calls.
+If you want, I can continue the refactor by moving legacy day folders into
+`/learning_logs` and expanding the evaluation harness with example fixtures.
