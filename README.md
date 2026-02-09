@@ -137,6 +137,4 @@ Current results:
 - Expand MCP tool registry for retrieval and knowledge base lookups.
 - Add CI for linting and tests.
 
----
-If you want, I can continue the refactor by moving legacy day folders into
-`/learning_logs` and expanding the evaluation harness with example fixtures.
+
